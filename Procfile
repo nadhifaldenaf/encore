@@ -1,1 +1,1 @@
-web: gunicorn app:apppip install gunicorn
+web: python -m gunicorn app:app

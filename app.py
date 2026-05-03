@@ -28,21 +28,33 @@ def index():
 @app.route("/login")
 def login():
     sp_oauth = create_sp_oauth()
-    auth_url = sp_oauth.get_authorize_url()
+    auth_url = sp_oauth.get_authorize_url() + "&show_dialog=true"
     return redirect(auth_url)
 
 @app.route("/callback")
 def callback():
+    error = request.args.get("error")
+    if error:
+        return redirect("/")
+    
     code = request.args.get("code")
-    sp_oauth = create_sp_oauth()
-    token_info = sp_oauth.get_access_token(code)
-    session["token"] = token_info["access_token"]
-    return redirect("/customize")
-
+    if not code:
+        return redirect("/")
+    
+    try:
+        sp_oauth = create_sp_oauth()
+        token_info = sp_oauth.get_access_token(code, check_cache=False)
+        session.clear()  # clear session lama dulu
+        session["token"] = token_info["access_token"]
+        return redirect("/customize")
+    except Exception as e:
+        print(f"Callback error: {e}")
+        return redirect("/")
+    
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect("/")
+    return redirect("https://accounts.spotify.com/en/logout")
 
 @app.route("/customize")
 def customize():

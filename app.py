@@ -14,7 +14,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY")
 sp_oauth = SpotifyOAuth(
     client_id=os.getenv("SPOTIFY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
-    redirect_uri=os.getenv("REDIRECT_URI", "http://127.0.0.1:5000/callback"),
+    redirect_uri=os.getenv("REDIRECT_URI", "https://spotify-encore.up.railway.app/callback"),
     scope="user-top-read user-read-recently-played"
 )
 

@@ -1,5 +1,6 @@
 from flask import Flask, redirect, request, session, render_template, send_file
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy.cache_handler import MemoryCacheHandler
 from dotenv import load_dotenv
 from generate_image import generate_story
 from io import BytesIO
@@ -11,12 +12,14 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
-sp_oauth = SpotifyOAuth(
-    client_id=os.getenv("SPOTIFY_CLIENT_ID"),
-    client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
-    redirect_uri=os.getenv("REDIRECT_URI", "https://spotify-encore.up.railway.app/callback"),
-    scope="user-top-read user-read-recently-played"
-)
+def create_sp_oauth():
+    return SpotifyOAuth(
+        client_id=os.getenv("SPOTIFY_CLIENT_ID"),
+        client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
+        redirect_uri=os.getenv("REDIRECT_URI", "https://spotify-encore.up.railway.app/callback"),
+        scope="user-top-read user-read-recently-played",
+        cache_handler=MemoryCacheHandler()
+    )
 
 @app.route("/")
 def index():
@@ -24,15 +27,22 @@ def index():
 
 @app.route("/login")
 def login():
+    sp_oauth = create_sp_oauth()
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
 
 @app.route("/callback")
 def callback():
     code = request.args.get("code")
+    sp_oauth = create_sp_oauth()
     token_info = sp_oauth.get_access_token(code)
     session["token"] = token_info["access_token"]
     return redirect("/customize")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 @app.route("/customize")
 def customize():

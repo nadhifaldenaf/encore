@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Receipt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1DB954, #191414, #6A0DAD);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 48px 40px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+        }
+
+        .emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 14px;
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+
+        .btn-login {
+            display: inline-block;
+            background: #1DB954;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-login:hover {
+            background: #1ed760;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 28px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="emoji">🎟️</div>
+<h1>encore.</h1>
+<p>Your music identity, captured. See your top tracks, favorite artists, and more — all in one ticket.</p>
+<a href="/login" class="btn-login">Continue with Spotify</a>
+<div class="footer">We only read your music data. Nothing is stored.</div>
+    </div>
+</body>
+</html>

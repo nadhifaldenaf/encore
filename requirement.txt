@@ -1,0 +1,7 @@
+flask
+spotipy
+python-dotenv
+pillow
+requests
+qrcode
+gunicorn

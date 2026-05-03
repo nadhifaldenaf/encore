@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encore – Customize</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #111;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+
+        .brand {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 32px;
+        }
+
+        .user-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 0.5px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 6px 16px 6px 6px;
+            margin-bottom: 28px;
+        }
+
+        .user-bar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-bar-fallback {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF6B6B, #A855F7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .user-bar-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            background: #0a0a0a;
+            border: 0.5px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .option-group {
+            margin-bottom: 24px;
+        }
+
+        .option-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.35);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .opt-btn {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 0.5px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .opt-btn:hover {
+            border-color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .opt-btn.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            font-weight: 700;
+        }
+
+        .divider {
+            border: none;
+            border-top: 0.5px solid rgba(255,255,255,0.08);
+            margin-bottom: 24px;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #FF6B6B, #A855F7);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .generate-btn:hover {
+            transform: scale(1.02);
+            opacity: 0.92;
+        }
+
+        .logout {
+            margin-top: 20px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.25);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .logout:hover {
+            color: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brand">encore.</div>
+    <div class="brand-sub">your music identity, captured.</div>
+
+    <div class="user-bar">
+        {% if user_image %}
+            <img src="{{ user_image }}" alt="Profile">
+        {% else %}
+            <div class="user-bar-fallback">{{ user_name[0] }}</div>
+        {% endif %}
+        <div class="user-bar-name">{{ user_name }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Customize your receipt</div>
+
+        <div class="option-group">
+            <div class="option-label">Show</div>
+            <div class="option-buttons">
+                <button class="opt-btn" data-group="show" data-value="tracks">Top Tracks</button>
+                <button class="opt-btn" data-group="show" data-value="artists">Top Artists</button>
+                <button class="opt-btn active" data-group="show" data-value="both">Both</button>
+            </div>
+        </div>
+
+        <div class="option-group">
+            <div class="option-label">Time Period</div>
+            <div class="option-buttons">
+                <button class="opt-btn active" data-group="time" data-value="short_term">Last Month</button>
+                <button class="opt-btn" data-group="time" data-value="medium_term">Last 6 Months</button>
+                <button class="opt-btn" data-group="time" data-value="long_term">All Time</button>
+            </div>
+        </div>
+
+        <div class="option-group">
+            <div class="option-label">Length</div>
+            <div class="option-buttons">
+                <button class="opt-btn" data-group="length" data-value="5">Top 5</button>
+                <button class="opt-btn active" data-group="length" data-value="10">Top 10</button>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <button class="generate-btn" onclick="generate()">Generate Receipt</button>
+    </div>
+
+    <a href="/" class="logout">logout</a>
+
+    <script>
+        const selected = { show: "both", time: "short_term", length: "10" };
+
+        document.querySelectorAll(".opt-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const group = btn.dataset.group;
+                document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                selected[group] = btn.dataset.value;
+            });
+        });
+
+        function generate() {
+            window.location.href = `/receipt?show=${selected.show}&time_range=${selected.time}&length=${selected.length}`;
+        }
+    </script>
+
+</body>
+</html>

@@ -195,4 +195,5 @@ def download():
     return send_file(buf, mimetype="image/png", as_attachment=True, download_name="encore-receipt.png")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
